@@ -1,9 +1,13 @@
 const Book = require('../../models/Book')
 
 const createBook = async (obj, { input }) => {
-  const newBook = await Book.query().insert(input).returning('*')
+  try {
+    const newBook = await Book.query().insert(input).returning('*')
 
-  return newBook
+    return newBook
+  } catch (err) {
+    throw new Error(`Could not create new book with input: ${JSON.stringify(input)}`)
+  }
 }
 
 

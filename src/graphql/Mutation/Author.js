@@ -1,9 +1,13 @@
 const Author = require('../../models/Author')
 
 const createAuthor = async (obj, { input }) => {
-  const newAuthor = await Author.query().insertGraph(input).returning('*')
+  try {
+    const newAuthor = await Author.query().insertGraph(input).returning('*')
 
-  return newAuthor
+    return newAuthor
+  } catch (err) {
+    throw new Error(`Could not create new author with input: ${JSON.stringify(input)}`)
+  }
 }
 
 

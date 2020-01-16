@@ -3,27 +3,43 @@ const Author = require('../../models/Author')
 const Publisher = require('../../models/Publisher')
 
 const allBooks = async () => {
-  const books = await Book.query()
+  try {
+    const books = await Book.query()
 
-  return books
+    return books
+  } catch (err) {
+    throw new Error('Failed to fetch books')
+  }
 }
 
 const book = async (obj, { bookId }) => {
-  const b = await Book.query().findById(bookId)
+  try {
+    const b = await Book.query().findById(bookId)
 
-  return b
+    return b
+  } catch (err) {
+    throw new Error(`Failed to fetch book with ID: ${bookId}`)
+  }
 }
 
 const author = async ({ authorId }) => {
-  const bookAuthor = await Author.query().findById(authorId)
+  try {
+    const bookAuthor = await Author.query().findById(authorId)
 
-  return bookAuthor
+    return bookAuthor
+  } catch (err) {
+    throw new Error('Failed to fetch author')
+  }
 }
 
 const publisher = async ({ publisherId }) => {
-  const p = await Publisher.query().findById(publisherId)
+  try {
+    const p = await Publisher.query().findById(publisherId)
 
-  return p
+    return p
+  } catch (err) {
+    throw new Error('Failed to fetch publisher')
+  }
 }
 
 const resolver = {

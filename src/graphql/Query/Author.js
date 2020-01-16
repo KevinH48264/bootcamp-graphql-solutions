@@ -3,23 +3,35 @@ const Book = require('../../models/Book')
 const Address = require('../../models/Address')
 
 const author = async (obj, { authorId }) => {
-  const a = Author.query().findById(authorId)
+  try {
+    const a = Author.query().findById(authorId)
 
-  return a
+    return a
+  } catch (err) {
+    throw new Error(`Could not fetch author with ID: ${authorId}`)
+  }
 }
 
 const searchAuthors = async (obj, { input }) => {
-  const authorsByName = await Author.query()
-    .where('firstName', 'ilike', `%${input}%`)
-    .orWhere('lastName', 'ilike', `%${input}%`)
+  try {
+    const authorsByName = await Author.query()
+      .where('firstName', 'ilike', `%${input}%`)
+      .orWhere('lastName', 'ilike', `%${input}%`)
 
-  return authorsByName
+    return authorsByName
+  } catch (err) {
+    throw new Error('Failed to fetch data')
+  }
 }
 
 const books = async ({ id }) => {
-  const authorBooks = Book.query().where({ authorId: id })
+  try {
+    const authorBooks = Book.query().where({ authorId: id })
 
-  return authorBooks
+    return authorBooks
+  } catch (err) {
+    throw new Error('Failed to fetch books')
+  }
 }
 
 const address = async ({ addressId }) => {

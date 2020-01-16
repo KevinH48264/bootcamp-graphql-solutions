@@ -4,21 +4,33 @@ const Book = require('../../models/Book')
 
 
 const publisher = async (obj, { publisherId }) => {
-  const p = Publisher.query().findById(publisherId)
+  try {
+    const p = Publisher.query().findById(publisherId)
 
-  return p
+    return p
+  } catch (err) {
+    throw new Error(`Failed to fetch publisher with ID: ${publisherId}`)
+  }
 }
 
 const address = async ({ addressId }) => {
-  const publisherAddress = Address.query().findOne({ id: addressId })
+  try {
+    const publisherAddress = Address.query().findOne({ id: addressId })
 
-  return publisherAddress
+    return publisherAddress
+  } catch (err) {
+    throw new Error('Failed to fetch address')
+  }
 }
 
 const books = async ({ id }) => {
-  const publisherBooks = Book.query().where({ publisherId: id })
+  try {
+    const publisherBooks = Book.query().where({ publisherId: id })
 
-  return publisherBooks
+    return publisherBooks
+  } catch (err) {
+    throw new Error('Failed to fetch books')
+  }
 }
 
 const resolver = {
