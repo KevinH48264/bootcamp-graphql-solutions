@@ -1,7 +1,7 @@
 const Author = require('../../models/Author')
 
 const createAuthor = async (obj, { input }) => {
-  const newAuthor = Author.query().insertGraph(input).returning('*')
+  const newAuthor = await Author.query().insertGraph(input).returning('*')
 
   return newAuthor
 }

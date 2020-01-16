@@ -4,6 +4,8 @@ module.exports = gql`
   type Query {
     allBooks: [Book!]!
     book(bookId: ID!): Book!
+    author(authorId: ID!): Author!
+    publisher(publisherId: ID!): Publisher!
     searchAuthors(input: String!): [Author!]!
   }
 
@@ -20,6 +22,8 @@ module.exports = gql`
     email: String
     numBooksPublished: Int
     address: Address
+    books: [Book!]!
+    createdAt: String!
   }
 
   type Book {
@@ -31,6 +35,7 @@ module.exports = gql`
     bestseller: Boolean
     author: Author!
     publisher: Publisher!
+    createdAt: String!
   }
 
   type Publisher {
@@ -39,6 +44,8 @@ module.exports = gql`
     phoneNumber: String!
     numBooksPublished: Int
     address: Address
+    books: [Book!]!
+    createdAt: String!
   }
 
   type Address {
@@ -46,6 +53,7 @@ module.exports = gql`
     street: String!
     city: String!
     zip: String!
+    createdAt: String!
   }
 
   input CreateBookInput {

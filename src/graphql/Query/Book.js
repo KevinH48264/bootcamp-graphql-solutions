@@ -1,5 +1,6 @@
 const Book = require('../../models/Book')
 const Author = require('../../models/Author')
+const Publisher = require('../../models/Publisher')
 
 const allBooks = async () => {
   const books = await Book.query()
@@ -14,9 +15,15 @@ const book = async (obj, { bookId }) => {
 }
 
 const author = async ({ authorId }) => {
-  const bookAuthor = Author.query().findById(authorId)
+  const bookAuthor = await Author.query().findById(authorId)
 
   return bookAuthor
+}
+
+const publisher = async ({ publisherId }) => {
+  const p = await Publisher.query().findById(publisherId)
+
+  return p
 }
 
 const resolver = {
@@ -26,6 +33,7 @@ const resolver = {
   },
   Book: {
     author,
+    publisher,
   },
 }
 
