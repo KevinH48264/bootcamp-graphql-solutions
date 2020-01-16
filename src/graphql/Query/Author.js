@@ -2,6 +2,16 @@ const Author = require('../../models/Author')
 const Book = require('../../models/Book')
 const Address = require('../../models/Address')
 
+const allAuthors = async () => {
+  try {
+    const authors = await Author.query()
+
+    return authors
+  } catch (err) {
+    throw new Error('Failed to get authors')
+  }
+}
+
 const author = async (obj, { authorId }) => {
   try {
     const a = Author.query().findById(authorId)
@@ -45,6 +55,7 @@ const resolver = {
   Query: {
     author,
     searchAuthors,
+    allAuthors,
   },
   Author: {
     books,

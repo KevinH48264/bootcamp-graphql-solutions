@@ -3,6 +3,8 @@ const { gql } = require('apollo-server-express')
 module.exports = gql`
   type Query {
     allBooks: [Book!]!
+    allPublishers: [Publisher!]!
+    allAuthors: [Author!]!
     book(bookId: ID!): Book!
     author(authorId: ID!): Author!
     publisher(publisherId: ID!): Publisher!

@@ -2,6 +2,15 @@ const Publisher = require('../../models/Publisher')
 const Address = require('../../models/Address')
 const Book = require('../../models/Book')
 
+const allPublishers = async () => {
+  try {
+    const publishers = await Publisher.query()
+
+    return publishers
+  } catch (error) {
+    throw new Error('Failed to fetch publishers')
+  }
+}
 
 const publisher = async (obj, { publisherId }) => {
   try {
@@ -36,6 +45,7 @@ const books = async ({ id }) => {
 const resolver = {
   Query: {
     publisher,
+    allPublishers,
   },
   Publisher: {
     address,
